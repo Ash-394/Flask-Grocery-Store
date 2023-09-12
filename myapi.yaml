@@ -1,0 +1,289 @@
+openapi: 3.0.0
+info:
+  version: '0.1'
+  description: Grocery Store API
+  title: My API
+  contact:
+    name: Grocery Store
+servers:
+- url: http://127.0.0.1:5000
+tags:
+  - name: sections
+    description: Access to sections
+    externalDocs:
+      description: Sections
+      url: http://127.0.0.1:5000
+  - name: products
+    description: Access to products
+paths:
+  /api/sections:
+    get: 
+      tags:
+        - sections
+      summary: Get all sections
+      description: Get all the sections present in the store
+      operationId: getSections
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+
+    post:
+      tags:
+        - sections
+      summary: Add a new section
+      description: Add new sections to the grocery store
+      operationId: addSection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Successfully created
+        '400':
+          description: Bad Request
+
+  /api/products:
+    get:
+      tags:
+        - products
+      summary: Get all products
+      description: Get all products present in the store
+      operationId: getProducts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    manufacture_date:
+                      type: string
+                    price:
+                      type: number
+                    quantity:
+                      type: integer
+                    image_url:
+                      type: string
+                    section_id:
+                      type: integer
+
+    post:
+      tags:
+        - products
+      summary: Add a new product
+      description: Adds new productd to the store
+      operationId: addProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                manufacture_date:
+                  type: string
+                price:
+                  type: number
+                quantity:
+                  type: integer
+                image_url:
+                  type: string
+                section_id:
+                  type: integer
+      responses:
+        '201':
+          description: Successfully created
+        '400':
+          description: Bad Request
+
+  /api/sections/{section_id}:
+    get:
+      tags:
+        - sections
+      summary: Get a specific section by ID
+      description: Gets a section according to the given ID
+      operationId: getSectionById
+      parameters:
+        - name: section_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+
+    put:
+      tags:
+        - sections
+      summary: Update a specific section by ID
+      description: Section name is updated
+      operationId: updateSection
+      parameters:
+        - name: section_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Successfully updated
+        '400':
+          description: Bad Request
+        '404':
+          description: Section not found
+
+    delete:
+      tags:
+        - sections
+      summary: Delete a specific section by ID
+      description: Delete a section
+      operationId: deleteSection
+      parameters:
+        - name: section_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully deleted
+        '404':
+          description: Section not found
+
+  /api/products/{product_id}:
+    get:
+      tags:
+        - products
+      summary: Get a specific product by ID
+      description: Gets a product according to the given ID
+      operationId: getsProductsById
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  manufacture_date:
+                    type: string
+                  price:
+                    type: number
+                  quantity:
+                    type: integer
+                  image_url:
+                    type: string
+                  section_id:
+                    type: integer
+
+    put:
+      tags:
+        - products
+      summary: Update a specific product by ID
+      description: Product details updated
+      operationId: updateProduct
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                manufacture_date:
+                  type: string
+                price:
+                  type: number
+                quantity:
+                  type: integer
+                image_url:
+                  type: string
+                section_id:
+                  type: integer
+      responses:
+        '200':
+          description: Successfully updated
+        '400':
+          description: Bad Request
+        '404':
+          description: Product not found
+
+    delete:
+      tags:
+        - products
+      summary: Delete a specific product by ID
+      description: Deletes a product
+      operationId: deleteProject
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully deleted
+        '404':
+          description: Product not found
