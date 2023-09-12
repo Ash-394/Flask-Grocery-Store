@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Add/Edit Product{% endblock %}
+
+{% block content %}
+  <div class="row mt-3">
+    <div class="col-md-6 offset-md-3">
+      <h3 class="mb-4">{{ "Edit Product" if product else "Add Product" }}</h3>
+      <form method="POST">
+        <div class="form-group">
+          <label for="name">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Enter product name"
+            {% if product %}
+              value="{{ product.name }}"
+            {% endif %}
+          />
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            name="price"
+            placeholder="Enter product price"
+            {% if product %}
+              value="{{ product.price }}"
+            {% endif %}
+          />
+        </div>
+        <div class="form-group">
+          <label for="quantity">Available Quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantity"
+            name="quantity"
+            placeholder="Enter available quantity"
+            {% if product %}
+              value="{{ product.quantity }}"
+            {% endif %}
+          />
+        </div>
+        <div class="form-group">
+          <label for="name">Manufacturing date</label>
+          <input
+            type="text"
+            class="form-control"
+            id="date"
+            name="date"
+            placeholder="Enter product manufacturing date"
+            {% if product %}
+              value="{{ product.manufacture_date }}"
+            {% endif %}
+          />
+        </div>
+        <div class="form-group">
+          <label for="image_url">Image URL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="image_url"
+            name="image_url"
+            placeholder="Enter product image URL"
+            {% if product %}
+              value="{{ product.image_url }}"
+            {% endif %}
+          />
+        </div>
+        <div class="form-group">
+          <label for="section_id">Select Section</label>
+          <select class="form-control" id="section_id" name="section_id">
+            {% for section in sections %}
+              <option value="{{ section.id }}" {% if product and product.section_id == section.id %}selected {% endif %}>{{ section.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        {% if product %}
+          <button type="submit" class="btn btn-danger ml-2" name="remove" value="remove">Remove</button>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+{% endblock %}

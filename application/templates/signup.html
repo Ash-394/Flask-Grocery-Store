@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block content %} 
+<form method="POST">
+  <br />
+    <h3 align="center">New User? Sign Up Here</h3>
+    <div class="form-group">
+      <label for="username">Username</label> 
+        <input
+            type="username"
+            class="form-control"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+        />
+    </div>
+    <div class="form-group">
+        <label for="password1">Password</label> 
+          <input
+              type="password1"
+              class="form-control"
+              id="password1"
+              name="password1"
+              placeholder="Enter a password"
+          />
+      </div>
+      <div class="form-group">
+        <label for="password2">Password(Confirm)</label> 
+          <input
+              type="password2"
+              class="form-control"
+              id="password2"
+              name="password2"
+              placeholder="Confirm password"
+          />
+      </div>
+
+      <select class="form-control" id="role" name="role" aria-label="Default select example">
+        <option  selected disabled>Open this to select role</option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+   
+    <div class="form-group"id="authkey" style="display: none;">
+    <label for="authkey">Admin Authentication Key</label>
+    <input
+      type="password"
+      class="form-control"
+      id="authkey"
+      name="authkey"
+      placeholder="Enter admin authentication key"
+    />
+  </div>
+
+
+      <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const roleSelect = document.getElementById('role');
+    const authKeyField = document.getElementById('authkey');
+  
+    roleSelect.addEventListener('change', function() {
+      if (roleSelect.value === 'admin') {
+        authKeyField.style.display = 'block';
+      } else {
+        authKeyField.style.display = 'none';
+      }
+    });
+  });
+  </script>
+{% endblock %}

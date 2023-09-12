@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Summary{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mt-4 mb-3">Summary</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="mt-3 mb-2">General Information</h4>
+      <p>Total Sections: {{ summary_data.total_sections }}</p>
+      <p>Total Products: {{ summary_data.total_products }}</p>
+      <p>Total Orders: {{ summary_data.total_orders }}</p>
+      <p>Total Order Amount: ${{ summary_data.total_order_amount }}</p>
+
+    </div>
+    <div class="col-md-6">
+      <h4 class="mt-3 mb-2">Product Distribution</h4>
+      <img src="{{ url_for('static', filename='summary/product_distribution.png') }}" class="img-fluid" alt="Product Distribution Chart">
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h4 class="mt-3 mb-2">Order Amounts by Date</h4>
+      <img src="{{ url_for('static', filename='summary/order_amounts.png') }}" class="img-fluid" alt="Order Amounts Chart">
+    </div>
+  </div>
+</div>
+{% endblock %}

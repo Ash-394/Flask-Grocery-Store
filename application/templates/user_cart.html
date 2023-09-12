@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}User Cart{% endblock %}
+
+{% block content %}
+  <h1>User Cart</h1>
+
+  <h3>Cart Items</h3>
+  {% if cart_items %}
+    <form method="POST">
+      <ul>
+        {% for item in cart_items %}
+          <li>
+            {{ item.product.name }} - Price: ${{ item.product.price }}
+            <input type="number" name="quantity_{{ item.product.id }}" value="{{ item.quantity }}" min="0" max="{{ item.product.quantity }}">
+            <button type="submit" class="btn btn-primary btn-sm">Update Quantity</button>
+            <button type="submit" class="btn btn-danger btn-sm" name="remove" value="{{ item.product.id }}" onclick="return confirm('Are you sure you want to remove this item from the cart?')">Remove</button>
+          </li>
+        {% endfor %}
+      </ul>
+    </form>
+    <p>Total Amount: ${{ total_amount }}</p>
+    <form method="POST">
+    <input type="hidden" name="checkout" value="1">
+    <button type="submit" class="btn btn-primary">Checkout</button>
+  </form>
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+
+  <a href="{{ url_for('routes.user_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}
+

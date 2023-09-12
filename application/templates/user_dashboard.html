@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<form method="GET" action="{{ url_for('routes.user_dashboard') }}" class="mb-4">
+  <div class="form-group">
+    <label for="search_query">Search by Section/Category:</label>
+    <input type="text" class="form-control" id="search_query" name="search_query" placeholder="Enter section/category name" value="{{ search_query }}">
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+  <a class="btn btn-secondary" href="{{ url_for('routes.user_dashboard') }}">Clear Search</a>
+</form>
+
+{% for section in sections %}
+<div class="row mb-4">
+  <div class="col-md-12">
+    <h3>{{ section.name }}</h3>
+    {% if products_by_section[section.id] %}
+    <div class="row">
+      {% for product in products_by_section[section.id] %}
+ 
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <img src="{{ url_for('static', filename=product.image_url) }}" class="card-img-top" style="height: 200px; object-fit: contain;" alt="Product Image">
+              <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">Price(per quantity): ${{ product.price }}</p>
+                {% if product.manufacture_date %}
+                <p class="card-text">Manufacture date: {{ product.manufacture_date }}</p>
+                {% endif %}
+                {% if product.quantity > 0 %}
+                <p class="card-text">Available quantity: {{ product.quantity }}</p>
+                  <form method="POST" action="{{ url_for('routes.user_cart')}}">
+                    <div class="form-group">
+                      <label for="quantity_{{ product.id }}">Quantity:</label>
+                      <input type="number" class="form-control" id="quantity_{{ product.id }}" name="quantity"  min="1" max="{{ product.quantity }}">
+                    </div>
+                    <input type="hidden" name="add_to_cart" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                  </form>
+                {% else %}
+                  <p class="card-text">Out of Stock</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+
+      {% endfor %}
+    </div>
+    {% else %}
+    <p>No products in this section.</p>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
