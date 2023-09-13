@@ -2,7 +2,7 @@
 - A Flask-based multi-user e-commerce app facilitates grocery shopping with efficient product management.
 
 ### Features and functions
-- CRUD operations for sections and products \via the API.
+- CRUD operations for sections and products via the API.
 - Multi-user authentication: Admin and user login and sign-up.
 - Inventory and product management: Admin can add, edit, and delete products and sections
 - Streamlined processing: Users can search for sections and purchase products from one or multiple categories.
@@ -25,3 +25,19 @@
 - Run the app:`flask --app main run` or `python main.py`
 
 Once the app is started we can click on the url generated where the server is running.
+
+### API Design 
+The API was designed using Flask-RESTful. The following endpoints were created: 
+- /api/sections: GET and POST methods for retrieving all sections and adding a new section. 
+- /api/sections/<int:section_id>: GET, PUT, and DELETE methods to access, update, and delete a 
+specific section by ID. 
+- /api/products: GET and POST methods for retrieving all products and adding a new product. 
+- /api/products/<int:product_id>: GET, PUT, and DELETE methods for accessing, updating, and 
+deleting a specific product by ID. 
+
+### Architecture and Features 
+- The project follows the MVC (Model-View-Controller) pattern The controllers are defined in the api.py(API endpoints) and routes.py(views) files. 
+- The models.py file contains the database models using SQLAlchemy. 
+- The templates folder contains the HTML templates for rendering the frontend. The static folder stores static assets like images.
+
+[Video](https://drive.google.com/file/d/1tLJYG6vYCNv_mYgZYcgIWO-v0TX1NG3p/view?usp=sharing)
